@@ -167,3 +167,23 @@ input[type="range"] {
       cursor: grabbing;
     }
   }
+
+  #overlays {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #dbdbdb #f5f5f5;
+    max-height: 400px; }
+
+  #overlays::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #overlays::-webkit-scrollbar-track {
+    background: #f5f5f5;
+  }
+
+  #overlays::-webkit-scrollbar-thumb {
+    background-color: #252537;
+    border-radius: 6px;
+    border: 2px solid #f5f5f5;
+  }

@@ -1,36 +1,36 @@
 var division = "grid";
 var maxX, maxY;
-var colors = ['rgb(93, 53, 39);', 'rgb(130, 36, 51);', 'rgb(198, 12, 48);', 'rgb(255, 99, 25);', 'rgb(253, 200, 47);', 'rgb(254, 221, 0);', 'rgb(51, 115, 33);', 'rgb(20, 77, 41);', 'rgb(40, 78, 54);', 'rgb(99, 153, 171);', 'rgb(0, 101, 189);', 'rgb(0, 57, 166);', 'rgb(0, 38, 100);', 'rgb(0, 33, 71);', 'rgb(0, 0, 0);', 'rgb(141, 129, 123);', 'rgb(255, 255, 255);'];
+var colors = ['rgb(93, 53, 39);', 'rgb(130, 36, 51);', 'rgb(198, 12, 48);', 'rgb(255, 99, 25);', 'rgb(253, 200, 47);','rgb(254, 221, 0);', 'rgb(51, 115, 33);', 'rgb(20, 77, 41);', 'rgb(40, 78, 54);', 'rgb(99, 153, 171);', 'rgb(0, 101, 189);', 'rgb(0, 57, 166);', 'rgb(0, 38, 100);', 'rgb(0, 33, 71);', 'rgb(0, 0, 0);', 'rgb(141, 129, 123);', 'rgb(255, 255, 255);'];
 
-$(document).ready(function () {
+$(document).ready(function() {
 	loadOverlays();
-
+	
 	// Set up color pickers
-	$("#divColors input").each(function () { makePalette($(this)); });
-
-	$("#divColors input").change(function () {
+	$("#divColors input").each(function() { makePalette($(this)); });
+	
+	$("#divColors input").change(function() {
 		draw();
 	});
-
+	
 	// Hook up events
-	$(".ratio").change(function () {
+	$(".ratio").change(function() {
 		setRatio($("#ratioWidth").val(), $("#ratioHeight").val());
 	});
-
-	$("#gridSize").change(function () {
+	
+	$("#gridSize").change(function() {
 		var val = $("#gridSize").val().split(':');
 		maxY = val[0];
 		maxX = val[1];
 		setSliderMaxes(maxX, maxY);
 		draw();
 	});
-
-	$(".divbutton").click(function () {
+	
+	$(".divbutton").click(function() {
 		division = $(this).attr("id");
 		draw();
 	});
-
-	$("#divisions input").bind("change", function () {
+	
+	$("#divisions input").bind("change", function() {
 		draw();
 	});
 });
@@ -44,11 +44,11 @@ function makePalette(p) {
 	});
 }
 
-$(window).load(function () {
+$(window).load(function() {
 	newFlag();
 });
 
-$(window).resize(function () {
+$(window).resize(function() {
 	setFlagSize();
 });
 
@@ -69,16 +69,14 @@ function newFlag() {
 function setRatio(x, y) {
 	$("#ratioWidth").val(x);
 	$("#ratioHeight").val(y);
-
+	
 	$("#gridSize").children().remove();
-	for (var i = 1; i <= 20; i++) {
-		$("#gridSize").append("<option>" + (i * y) + ":" + (i * x) + "</option>");
+	for(var i = 1; i <= 20; i++) {
+		$("#gridSize").append("<option>" + (i*y) + ":" + (i*x) + "</option>");
 	}
-
-	document.getElementById("gridSize").dispatchEvent(new Event("change"));
-
-	$("#gridSize").trigger("change");
-
+	
+	$("#gridSize").change();
+	
 	setSliderMaxes(x, y);
 	setFlagSize();
 }
@@ -89,17 +87,17 @@ function setFlagSize() {
 }
 
 function setSliderMaxes(x, y) {
-	$("#divisions input[type=number]").each(function () {
+	$("#divisions input[type=number]").each(function() {
 		$(this).prop({
 			max: x > y ? x : y
 		}).slider("refresh");
 	});
-
-	$("#overlayArea input[type=number]").each(function () {
+	
+	$("#overlayArea input[type=number]").each(function() {
 		var useX = $(this).attr("use-x");
 		var useY = $(this).attr("use-y");
 		var max = x;
-
+		
 		var newValue = $(this).val() * (max / $(this).attr("max"));
 		if (useY !== undefined && useY !== false) {
 			max = y;
@@ -108,9 +106,9 @@ function setSliderMaxes(x, y) {
 		} else {
 			$(this).attr("max", max);
 		}
-
+		
 		$(this).val(newValue.toFixed(1));
-		$(this).parent().prev().children().html($(this).val());
+		var a = $(this).parent().prev().children().html($(this).val());
 	});
 }
 
@@ -131,8 +129,8 @@ function drawThing(thing) {
 
 function draw() {
 	$("#flag").empty();
-
-	switch (division) {
+	
+	switch(division) {
 		case "grid":
 			$("#div3col").spectrum("disable");
 			showSliders(2);
@@ -164,8 +162,8 @@ function draw() {
 			drawX();
 			break;
 	}
-
-	$("#overlays").children().filter("div").each(function () {
+	
+	$("#overlays").children().filter("div").each(function() {
 		drawOverlay($(this));
 	});
 }

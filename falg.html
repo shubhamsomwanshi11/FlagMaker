@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FlagMaker Jr.</title>
+	<!-- Libraries -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.css"
+		integrity="sha512-KuSX+43gVS5MEIJD2ewtrFPOHqC1PJnL8o2f5ciggPC0JUZ8XV0QXlfArO1mSzKkVFdRjsBDfrTU96C5SuRfqQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<!-- <script src="scripts/jquery.mobile-1.4.3.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.js"
+		integrity="sha512-1aNp9qKP+hKU/VJwCtYqJP9tdZWbMDN5pEEXXoXT0pTAxZq1HHZhNBR/dtTNSrHO4U1FsFGGILbqG1O9nl8Mdg=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="scripts/divisions.js" type="text/javascript"></script>
+	<script src="scripts/overlays.js" type="text/javascript"></script>
+	<script src="scripts/overlays-basic.js" type="text/javascript"></script>
+	<script src="scripts/overlays-path.js" type="text/javascript"></script>
+	<script src="scripts/fmj.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+	<div class="has-background-grey-dark">
+        <h1 class="title has-text-light has-text-centered">Flag Creator Online</h1>
+		<div class="columns">
+			<div id="toparea" class="column is-7">
+				<h4 class="is-size-5 has-text-weight-bold">Tools</h4>
+				<div class="mt-2">
+					<a href="#" class="button is-medium" onclick="newFlag();">New</a>
+					<a href="#" class="button is-medium" onclick="exportSvg();">Export SVG</a>
+				</div>
+				<hr class="mx-5">
+
+				<div class="columns">
+					<div id="ratio" class="column is-flex is-align-items-center has-text-weight-bold">
+						<h4 class="is-size-5">Ratio:</h4>
+						<input style="width: 75px;" type="number" min="1" id="ratioHeight"
+							class="ml-2 input has-text-centered" />
+						<div class="mx-1">:</div>
+						<input style="width: 75px;" type="number" min="1" id="ratioWidth"
+							class="input has-text-centered" />
+					</div>
+					<div class="column is-flex is-align-items-center">
+						<h4 class=" is-size-5 mx-2">Grid Size : </h4>
+						<div class="select">
+							<select id="gridSize" name="gridSize"></select>
+						</div>
+					</div>
+				</div>
+				<div style="height: 305;width: 40%" class="mt-5">
+					<svg id="flag" xmlns="http://www.w3.org/2000/svg"></svg>
+				</div>
+			</div>
+			<div id="toolarea" class="column">
+				<div id="divisions">
+					<h4 class="is-size-5 has-text-weight-bold">Division</h4>
+					<div id="ratio">
+						<a id="grid" class="divbutton button"><img src="img/grid.png" title="Grid" /></a>
+						<a id="fesses" class="divbutton button"><img src="img/fesses.png" title="Fesses" /></a>
+						<a id="pales" class="divbutton button"><img src="img/pales.png" title="Pales" /></a>
+						<a id="bendsf" class="divbutton button"><img src="img/bendsf.png" title="Bends forward" /></a>
+						<a id="bendsb" class="divbutton button"><img src="img/bendsb.png" title="Bends backward" /></a>
+						<a id="x" class="divbutton button"><img src="img/x.png" title="Bends both" /></a>
+					</div>
+					<div id="divColors" class="columns mt-2">
+						<div class="column is-2">
+							<input type="text" id="div1col" class="button" />
+						</div>
+						<div class="column is-2">
+							<input type="text" id="div2col" class="button" />
+						</div>
+						<div class="column is-2">
+							<input type="text" id="div3col" class="input" />
+						</div>
+					</div>
+					<div class="columns">
+						<div class="column">
+							<input type="range" name="div1val" id="div1val" class="has-text-centered" min="1" max="20"
+								val="4"></input>
+						</div>
+						<div class="column">
+							<input type="range" name="div2val" id="div2val" class="has-text-centered" min="1" max="20"
+								val="4"></input>
+						</div>
+						<div class="column">
+							<input type="range" name="div3val" id="div3val" class="has-text-centered" min="1" max="20"
+								val="4"></input>
+						</div>
+					</div>
+					<hr>
+				</div>
+
+				<div id="overlayArea">
+					<h4 class="is-size-5 has-text-weight-bold">Overlays</h4>
+					<a href="#" class="button is-medium" onclick="addOverlay();">Add new</a>
+					<div id="overlays" class="box"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -19,20 +19,21 @@ function addOverlay() {
 	event.preventDefault();
 	var overlay = overlays[0];
 
-	var string = "<div id=\"overlay" + overlayId + "\" class=\"box\" >" +
-		"<h4>" + overlay.name + "</h4>" +
+	var string = "<div id=\"overlay" + overlayId + "\" class=\"card mt-3\" style=\"background-color: #37375a;\">" +
+		"<div class=\"card-content\">" +
+		"<h4 class=\"has-text-weight-semibol has-text-light\">" + overlay.name + "</h4>" +
 		"<div class=\"buttons\">" +
-		"<a href=\"#\" class=\"button\" title=\"Remove\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" /></a>" +
-		"<a href=\"#\" class=\"button\" title=\"Move up\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" /></a>" +
-		"<a href=\"#\" class=\"button\" title=\"Move down\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" /></a>" +
-		"<a href=\"#\" class=\"button mx-2\" title=\"Clone\" onclick=\"clone(this);\" disabled><img src=\"img\\clone.png\" /></a>" +
+		"<a href=\"#\" class=\"button is-small\" title=\"Remove\" onclick=\"deleteOverlay(this);\"><img src=\"img\\remove.png\" /></a>" +
+		"<a href=\"#\" class=\"button is-small\" title=\"Move up\" onclick=\"moveUp(this);\"><img src=\"img\\moveup.png\" /></a>" +
+		"<a href=\"#\" class=\"button is-small\" title=\"Move down\" onclick=\"moveDown(this);\"><img src=\"img\\movedown.png\" /></a>" +
+		"<a href=\"#\" class=\"button is-small mx-2\" title=\"Clone\" onclick=\"clone(this);\" disabled><img src=\"img\\clone.png\" /></a>" +
 		"</div>" +
-		
+
 		"<input type=\"text\" id=\"ovcol-" + overlayId + "\"  />" +
-		"<div class=\"select mx-3\"> <select id=\"type-" + overlayId + "\" >" + overlayNames() + "</select><\/div><div class=\"mt-3 is-flex\" id=\"sliders\">";
+		"<div class=\"select  mx-3\"> <select id=\"type-" + overlayId + "\" >" + overlayNames() + "</select><\/div><div class=\"mt-3 is-flex\" id=\"sliders\">";
 
 	string += getSliderString(overlay, overlayId);
-	string += "</div></div>";
+	string += "</div></div></div>";
 
 	$("#overlays").append(string);
 
@@ -77,7 +78,7 @@ function getSliderString(overlay, id) {
 		var name = "slider-" + id + "-" + i;
 		var useX = overlay.sliders[i][1];
 
-		string += "<label for=\"slider-" + name + "-" + i + "\">" + label + "</label>" +
+		string += "<label class=\"has-text-light\" for=\"slider-" + name + "-" + i + "\">" + label + "</label>" +
 			"<input type=\"range\" name=\"" + name + "\" id=\"" + name + "\" data-highlight=\"true\" min=\"0\" max=\"" + (useX ? maxX : maxY) + "\" value=\"" + overlay.sliders[i][2] + "\" step=\".1\" ";
 		if (useX) {
 			string += "use-x ";
