@@ -181,6 +181,7 @@ input[type="range"]::-ms-thumb {
   background-image: none;
   background-size: cover;
   border-radius: 8px;
+  resize: both;
 }
 
 .default-size {
@@ -226,4 +227,15 @@ input[type="range"]::-ms-thumb {
 
 .setnone {
   display: none !important;
+}
+
+.resizable {
+  resize: both;
+  overflow: auto;
+}
+
+.selected {
+  box-shadow: 0 0 10px rgb(65, 4, 231);
+  border: 2px solid skyblue;
+  padding: 1px;
 }

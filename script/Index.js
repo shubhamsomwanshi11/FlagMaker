@@ -77,6 +77,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabContents = Array.from(document.querySelectorAll(".tab-content"));
     tabItems.forEach(tabItem => {
         tabItem.addEventListener("click", () => {
+            tabItems.forEach(item => {
+                item.classList.remove('is-active');
+            })
+            tabItem.classList.remove('is-active');
+            tabItem.classList.add('is-active')
             // Hide all tab contents
             tabContents.forEach(tabContent => {
                 tabContent.classList.add('setnone');
@@ -88,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Show the corresponding tab content
             const content = document.getElementById(target);
             content.classList.remove('setnone');
+
         });
     });
 
@@ -200,6 +206,7 @@ function newFlag() {
     flag.innerHTML = '';
     document.getElementById('colorpickers').innerHTML = '';
 }
+
 function appendImageToFlag(element) {
     var imageUrl;
 
@@ -213,17 +220,39 @@ function appendImageToFlag(element) {
     if (imageUrl) {
         // Create a new image element
         var newImage = document.createElement('img');
-        newImage.classList.add('default-postion');
-        newImage.classList.add('draggable-header');
+        newImage.classList.add('default-postion', 'draggable-header', 'resizable', 'selected'); // Add 'selected' by default
         newImage.style.width = '100px';
         newImage.style.height = '100px';
         newImage.src = imageUrl;
-        // Append the new image to the flag container
+
+        function toggleSelected() {
+            var images = flag.getElementsByTagName('img');
+            for (var i = 0; i < images.length; i++) {
+                images[i].classList.remove('selected');
+            }
+            newImage.classList.add('selected');
+        }
+
+        newImage.addEventListener('click', function (event) {
+            toggleSelected();
+            event.stopPropagation();
+        });
+
+        newImage.addEventListener('mousedown', function (event) {
+            toggleSelected();
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', function () {
+            toggleSelected();
+        });
+
         flag.appendChild(newImage);
         dragElement(newImage);
     }
-
 }
+
+
 // Make draggable elements
 var draggableElements = document.querySelectorAll('.draggable');
 
