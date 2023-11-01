@@ -220,38 +220,42 @@ function appendImageToFlag(element) {
     if (imageUrl) {
         // Create a new image element
         var newImage = document.createElement('img');
-        newImage.classList.add('default-postion', 'draggable-header', 'resizable', 'selected'); // Add 'selected' by default
+        newImage.classList.add('default-postion');
+        newImage.classList.add('draggable-header');
         newImage.style.width = '100px';
         newImage.style.height = '100px';
         newImage.src = imageUrl;
-
-        function toggleSelected() {
-            var images = flag.getElementsByTagName('img');
-            for (var i = 0; i < images.length; i++) {
-                images[i].classList.remove('selected');
-            }
-            newImage.classList.add('selected');
-        }
-
+        newImage.classList.add('resizable'); // Add class for resizing
         newImage.addEventListener('click', function (event) {
-            toggleSelected();
-            event.stopPropagation();
+            // Toggle a class to add glow effect on click
+            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
+            for (var i = 0; i < images.length; i++) {
+                images[i].classList.remove('selected'); // Remove 'selected' class from all images
+            }
+            newImage.classList.add('selected'); // Add 'selected' class to the current image
+            event.stopPropagation(); // Prevent the click from bubbling up
         });
-
         newImage.addEventListener('mousedown', function (event) {
-            toggleSelected();
-            event.stopPropagation();
+            // Toggle a class to add glow effect on click
+            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
+            for (var i = 0; i < images.length; i++) {
+                images[i].classList.remove('selected'); // Remove 'selected' class from all images
+            }
+            newImage.classList.add('selected'); // Add 'selected' class to the current image
+            event.stopPropagation(); // Prevent the click from bubbling up
         });
 
-        document.addEventListener('click', function () {
-            toggleSelected();
+        // Remove the 'selected' class when clicking anywhere else on the document
+        document.addEventListener('click', function (event) {
+            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
+            for (var i = 0; i < images.length; i++) {
+                images[i].classList.remove('selected'); // Remove 'selected' class from all images
+            }
         });
-
         flag.appendChild(newImage);
         dragElement(newImage);
     }
 }
-
 
 // Make draggable elements
 var draggableElements = document.querySelectorAll('.draggable');

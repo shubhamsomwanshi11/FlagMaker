@@ -236,6 +236,6 @@ input[type="range"]::-ms-thumb {
 
 .selected {
   box-shadow: 0 0 10px rgb(65, 4, 231);
-  border: 2px solid skyblue;
+  border: 4px solid skyblue;
   padding: 1px;
 }
