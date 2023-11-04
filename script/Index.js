@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('div2'),
         document.getElementById('div3')
     ];
-
     // Add event listeners to each color picker
     colorPickers.forEach((colorPicker, index) => {
         colorPicker.addEventListener('input', function () {
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Set the initial value of the color picker to the div's background color
         colorPicker.value = rgbToHex(colorDivs[index].style.backgroundColor);
-
     });
 
 
@@ -163,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             div.style.height = "100%";
             div.id = "flag";
 
-            // Clear the "flags" container first
             flag.innerHTML = '';
 
             // Append the new div to the "flags" container
@@ -198,8 +195,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+    // Remove the 'selected' class when clicking anywhere else on the document
+    flag.addEventListener('click', function (event) {
+        var divs = flag.getElementsByTagName('div'); // Get all images in the flag container
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].classList.remove('selected'); // Remove 'selected' class from all images
+        }
+        document.getElementById('delete').disabled = true;
+    });
 
-    dragElement(document.getElementById('staticimg'));
+    document.getElementById('delete').addEventListener('click', () => {
+        var element = document.querySelector('.selected');
+        if (element) {
+            element.parentNode.removeChild(element);
+            document.getElementById('delete').disabled = true;
+        }
+    });
+    dragElement(document.querySelector('.resizable'));
+    var resizableDiv = document.getElementById('staticdiv');
+    resizableDiv.addEventListener('click', function (event) {
+        selectImage(resizableDiv);
+        event.stopPropagation();
+    });
+
+    resizableDiv.addEventListener('mousedown', function (event) {
+        selectImage(resizableDiv);
+        event.stopPropagation();
+    });
 });
 
 function newFlag() {
@@ -220,54 +242,46 @@ function appendImageToFlag(element) {
     if (imageUrl) {
         // Create a new image element
         var newImage = document.createElement('img');
-        newImage.classList.add('default-postion');
-        newImage.classList.add('draggable-header');
         newImage.style.width = '100px';
         newImage.style.height = '100px';
         newImage.src = imageUrl;
-        newImage.classList.add('resizable'); // Add class for resizing
-        newImage.addEventListener('click', function (event) {
-            // Toggle a class to add glow effect on click
-            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
-            for (var i = 0; i < images.length; i++) {
-                images[i].classList.remove('selected'); // Remove 'selected' class from all images
-            }
-            newImage.classList.add('selected'); // Add 'selected' class to the current image
-            event.stopPropagation(); // Prevent the click from bubbling up
-        });
-        newImage.addEventListener('mousedown', function (event) {
-            // Toggle a class to add glow effect on click
-            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
-            for (var i = 0; i < images.length; i++) {
-                images[i].classList.remove('selected'); // Remove 'selected' class from all images
-            }
-            newImage.classList.add('selected'); // Add 'selected' class to the current image
-            event.stopPropagation(); // Prevent the click from bubbling up
+
+        var resizableDiv = document.createElement('div');
+        resizableDiv.classList.add('resizable');
+        resizableDiv.innerHTML = `<div class='resizers '>
+        <div class="dragger"></div>
+                <div class='resizer bottom-right'></div>
+            </div>`;
+        resizableDiv.style.backgroundImage = 'url(' + imageUrl + ')';
+
+        resizableDiv.addEventListener('click', function (event) {
+            selectImage(resizableDiv);
+            event.stopPropagation();
         });
 
-        // Remove the 'selected' class when clicking anywhere else on the document
-        document.addEventListener('click', function (event) {
-            var images = flag.getElementsByTagName('img'); // Get all images in the flag container
-            for (var i = 0; i < images.length; i++) {
-                images[i].classList.remove('selected'); // Remove 'selected' class from all images
-            }
+        resizableDiv.addEventListener('mousedown', function (event) {
+            selectImage(resizableDiv);
+            event.stopPropagation();
         });
-        flag.appendChild(newImage);
-        dragElement(newImage);
+
+        flag.appendChild(resizableDiv);
+        makeElementResizable('.resizable');
+        dragElement(resizableDiv);
     }
 }
 
-// Make draggable elements
-var draggableElements = document.querySelectorAll('.draggable');
-
-// Loop through each draggable element and make it draggable
-draggableElements.forEach(function (el) {
-    dragElement(el);
-});
+function selectImage(element) {
+    var divs = flag.getElementsByTagName('div');
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].classList.remove('selected');
+    }
+    element.classList.add('selected');
+    document.getElementById('delete').disabled = false;
+}
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    var header = elmnt.querySelector('.draggable-header');
+    var header = elmnt.querySelector('.dragger');
     if (header) {
         header.onmousedown = dragMouseDown;
     } else {
@@ -275,6 +289,7 @@ function dragElement(elmnt) {
     }
 
     function dragMouseDown(e) {
+        // elmnt.classList.add('selected');
         e = e || window.event;
         e.preventDefault();
         pos3 = e.clientX;
@@ -301,6 +316,10 @@ function dragElement(elmnt) {
 }
 
 function downloadImage() {
+    var divs = Array.from(flag.getElementsByTagName('div'));
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].classList.remove('selected');
+    }
     const divToCapture = document.getElementById('flag');
     const width = divToCapture.offsetWidth;
     const height = divToCapture.offsetHeight;
@@ -314,4 +333,45 @@ function downloadImage() {
         link.href = canvas.toDataURL('image/' + selectedFormat);
         link.click();
     });
+}
+
+// Making elements resizable
+function makeElementResizable(div) {
+    const element = document.querySelector(div);
+    const bottomRightResizer = element.querySelector('.resizer.bottom-right'); // Get the bottom-right resizer
+    const minimum_size = 20;
+    let original_width = 0;
+    let original_height = 0;
+    let original_x = 0;
+    let original_y = 0;
+    let original_mouse_x = 0;
+    let original_mouse_y = 0;
+
+    bottomRightResizer.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+        original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+        original_x = element.getBoundingClientRect().left;
+        original_y = element.getBoundingClientRect().top;
+        original_mouse_x = e.pageX;
+        original_mouse_y = e.pageY;
+        window.addEventListener('mousemove', resize);
+        window.addEventListener('mouseup', stopResize);
+    });
+
+    function resize(e) {
+        const width = original_width + (e.pageX - original_mouse_x);
+        const height = original_height + (e.pageY - original_mouse_y);
+
+        if (width > minimum_size) {
+            element.style.width = width + 'px';
+        }
+
+        if (height > minimum_size) {
+            element.style.height = height + 'px';
+        }
+    }
+    function stopResize() {
+        window.removeEventListener('mousemove', resize);
+    }
 }

@@ -29,26 +29,32 @@
                     </div>
                 </div>
                 <div class="columns ml-3" style="height: 100%;">
-                    <div id="flagarea"
-                        class="has-background-white column mt-1 ml-2 is-flex is-align-items-center is-justify-content-center"
-                        style="width: 98%; height:89%;border-radius: 8px; ">
-                        <div id="flag-container">
-                            <div style="width: 100%; height: 100%;" id="flag">
-                                <div class="horizontal-bars-container">
-                                    <div id="div1" class="horizontal-bar" style="background-color: #FF671F;"></div>
-                                    <div id="div2" class="horizontal-bar" style="background-color: #FFFFFF;"></div>
-                                    <img src="./img/ashoka-chakra.png" id="staticimg"
-                                        style="width: 100px; height: 100px; position: absolute; top: 50%;left: 50%; transform: translate(-50%,-50%);"
-                                        alt="">
-                                    <div id="div3" class="horizontal-bar" style="background-color: #046A38;"></div>
+                    <div class="column has-background-white" style="width: 98%; height:89%;border-radius: 8px;">
+                        <div class="has-text-right">
+                            <button class="button is-outlined mx-2 is-danger" id="delete">Delete</button>
+                        </div>
+                        <div id="flagarea" class="mt-1 ml-2 is-flex is-align-items-center is-justify-content-center"
+                            style="height: 80%;">
+                            <div id="flag-container">
+                                <div style="width: 100%; height: 100%;" id="flag">
+                                    <div class="horizontal-bars-container">
+                                        <div id="div1" class="horizontal-bar" style="background-color: #FF671F;"></div>
+                                        <div id="div2" class="horizontal-bar" style="background-color: #FFFFFF;"></div>
+                                        <div class="resizable selected" id="staticdiv"
+                                            style="background-image: url(./img/ashoka-chakra.png); top: 98px; left: 198px;">
+                                            <div class="resizers">
+                                                <div class="dragger"></div>
+                                                <div class="resizer bottom-right"></div>
+                                            </div>
+                                        </div>
+                                        <div id="div3" class="horizontal-bar" style="background-color: #046A38;"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="column is-4 pt-0">
-
                         <div class="mx-2 box" style="height:92%;background-color:  #1c1c2f;border-radius: 8px;">
-
                             <p class="has-text-light is-size-5 mb-2 has-text-weight-bold">Choose background</p>
                             <div class="columns">
                                 <div class="file column is-boxed">
@@ -149,7 +155,8 @@
                             </ul>
                         </div>
                         <div id="flags"
-                            class="tab-content columns is-flex is-justify-content-center is-multiline setnone ">
+                            class="tab-content columns is-flex is-justify-content-center is-multiline setnone "
+                            style="overflow-y: auto; height: 290px;">
                             <div class="column is-5 has-background-grey-light mx-1">
                                 <div class="vertical-bars-container">
                                     <div class="vertical-bar" style="background-color: #FF671F;"></div>
@@ -167,6 +174,17 @@
                             <div class="column is-5 has-background-grey-light mx-1 mt-2">
                                 <div class="horizontal-bars-container">
                                     <div class="horizontal-bar" style="background-color: #FF671F;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FFFFFF;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FF671F;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FFFFFF;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FF671F;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FFFFFF;"></div>
+                                    <div class="horizontal-bar" style="background-color: #FF671F;"></div>
+                                </div>
+                            </div>
+                            <div class="column is-5 has-background-grey-light mx-1 mt-2">
+                                <div class="horizontal-bars-container">
+                                    <div class="horizontal-bar" style="background-color: #FF671F;"></div>
                                     <div class="horizontal-bar" style="background-color: #046A38;"></div>
                                 </div>
                             </div>
@@ -176,6 +194,11 @@
                                     <div class="vertical-bar" style="background-color: #FFFFFF;"></div>
                                     <div class="vertical-bar" style="background-color: #046A38;"></div>
                                     <div class="vertical-bar" style="background-color: #000000;"></div>
+                                </div>
+                            </div>
+                            <div class="column is-5 has-background-grey-light mt-2 mx-1">
+                                <div class="vertical-bars-container" style="border: 3px solid rgb(52, 247, 8);">
+                                    <div class="vertical-bar" style="background-color: #FF671F;"></div>
                                 </div>
                             </div>
                             <div class="column is-5 has-background-grey-light mt-2 mx-1">
@@ -195,9 +218,14 @@
                                     <div class="vertical-bar" style="background-color: #ef5710;"></div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="columns is-multiline tab-content setnone" id="symbols">
+                        <div class="columns is-multiline tab-content setnone" id="symbols"
+                            style="overflow-y: auto; height: 290px;">
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="./img/ashoka-chakra.png" onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
                                     <img src="./img/star.jpg" onclick="appendImageToFlag(this)">
@@ -205,62 +233,180 @@
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/7star-min.jpg" onclick="appendImageToFlag(this)">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Crescent_and_Star_of_Algeria.svg/2048px-Crescent_and_Star_of_Algeria.svg.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/412_moon-star-algeria-min.jpg">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/009/267/796/original/circle-with-star-free-png.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/523_sunkurdistan-min.jpg">
+                                    <img src="./img/star-icon-19133.png" onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/736_cross-jerusalem-min.jpg">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Emblem_of_the_Republic_of_Kosovo.svg/800px-Emblem_of_the_Republic_of_Kosovo.svg.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/741_sun-kyrgyzstan-min.jpg">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Kosovo_Blanc_Flag.PNG"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://www.vexilla-mundi.com/kyrgyzstan/kyrgyzstan_detail.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vergina_Sun.svg/2048px-Vergina_Sun.svg.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Cross-Jerusalem-Potent-Heraldry.svg/560px-Cross-Jerusalem-Potent-Heraldry.svg.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Roj_emblem.svg/1500px-Roj_emblem.svg.png?Kurdish_Sun1167369210"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://pngimg.com/d/christian_cross_PNG3.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/001/194/123/small/cross-glow.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/009/344/657/original/sun-transparent-background-free-png.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://png.pngtree.com/png-clipart/20201209/original/pngtree-sun-png-clipart-colored-png-image_5656301.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Flag_of_the_Philippines_-_cropped_sun.svg/1024px-Flag_of_the_Philippines_-_cropped_sun.svg.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Israeli_blue_Star_of_David.png/666px-Israeli_blue_Star_of_David.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Sol_de_Mayo_Bandera_Argentina.png/800px-Sol_de_Mayo_Bandera_Argentina.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://www.freeiconspng.com/thumbs/crescent-moon-png/black-crescent-moon-png-2.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Crossland_Banner.svg/1280px-Crossland_Banner.svg.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                         </div>
 
-                        <div id="shapes" class="columns is-multiline tab-content setnone">
+                        <div id="shapes" class="columns is-multiline tab-content setnone"
+                            style="overflow-y: auto; height: 290px;">
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/circle-png.webp" onclick="appendImageToFlag(this)">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/001/192/291/original/circle-png.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/ashoka-chakra.png" onclick="appendImageToFlag(this)">
+                                    <img src="https://cdn-icons-png.flaticon.com/256/33/33848.png"
+                                        onclick="appendImageToFlag(this)">
                                 </figure>
                             </div>
-                            <div class="column is-4 is-flex is-align-items-center is-justify-content-center">
-                                <svg width="50" height="50" id="rectshape">
-                                    <rect width="50" height="50" style="fill:white;stroke-width:3;stroke:rgb(0,0,0)" />
-                                </svg>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://static.vecteezy.com/system/resources/thumbnails/001/191/989/small/circle-logo.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
                             </div>
-                            <div class="column is-4 is-flex is-align-items-center is-justify-content-center">
-                                <svg height="50" width="50" id="lineshape">
-                                    <line x1="0" y1="0" x2="200" y2="200" style="stroke:black;stroke-width:2" />
-                                </svg>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://static.vecteezy.com/system/resources/previews/001/200/602/original/triangle-png.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
                             </div>
-                            <div class="column is-4 is-flex is-align-items-center is-justify-content-center">
-                                <svg height="50" width="50" id="triangleshape">
-                                    <polygon points="0,50 25,0 50,50" style="fill:white;stroke:black;stroke-width:2" />
-                                </svg>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://freepngimg.com/thumb/categories/1812.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
                             </div>
-                            <div class="column is-4 is-flex is-align-items-center is-justify-content-center">
-                                <svg height="50" width="50" id="starshape">
-                                    <polygon points="25,0 30,20 50,25 30,30 25,50 20,30 0,25 20,20"
-                                        style="fill:white;stroke:black;stroke-width:2" />
-                                </svg>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Regular_hexagon.svg/2048px-Regular_hexagon.svg.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/33/33807.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/33/33785.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://static.thenounproject.com/png/104981-200.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/5854/5854059.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
+                            </div>
+                            <div class="column is-3">
+                                <figure class="image is-95x96">
+                                    <img src="https://www.freeiconspng.com/thumbs/3d-cube-png/3d-cube-outline-8.png"
+                                        onclick="appendImageToFlag(this)">
+                                </figure>
                             </div>
                         </div>
                     </div>
