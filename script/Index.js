@@ -1,5 +1,6 @@
 var flag;
 document.addEventListener("DOMContentLoaded", () => {
+    addDragRotateHandler(`.rotate0`)
     // Get references to the color pickers and divs
     const colorPickers = [
         document.getElementById('color1'),
@@ -229,9 +230,9 @@ function newFlag() {
     document.getElementById('colorpickers').innerHTML = '';
 }
 
+var divCounter = 1;
 function appendImageToFlag(element) {
     var imageUrl;
-
     if (element.tagName === 'IMG') {
         imageUrl = element.src;
     } else if (element.files.length > 0) {
@@ -263,10 +264,15 @@ function appendImageToFlag(element) {
             selectImage(resizableDiv);
             event.stopPropagation();
         });
-
+        resizableDiv.classList.add(`rotate${divCounter}`);
+        var rotater = document.createElement('div');
+        rotater.classList.add('rotater');
+        resizableDiv.appendChild(rotater);
         flag.appendChild(resizableDiv);
         makeElementResizable('.resizable');
         dragElement(resizableDiv);
+        addDragRotateHandler(`.rotate${divCounter}`)
+        divCounter++;
     }
 }
 
@@ -320,20 +326,25 @@ function downloadImage() {
     for (var i = 0; i < divs.length; i++) {
         divs[i].classList.remove('selected');
     }
+
     const divToCapture = document.getElementById('flag');
     const width = divToCapture.offsetWidth;
     const height = divToCapture.offsetHeight;
 
     const selectedFormat = document.getElementById('imagetype').value;
 
-    html2canvas(divToCapture, { width, height }).then(function (canvas) {
-
+    html2canvas(divToCapture, {
+        width,
+        height,
+        ignoreElements: element => element.classList.contains('rotater')
+    }).then(function (canvas) {
         const link = document.createElement('a');
         link.download = 'flag.' + selectedFormat;
         link.href = canvas.toDataURL('image/' + selectedFormat);
         link.click();
     });
 }
+
 
 // Making elements resizable
 function makeElementResizable(div) {
@@ -373,5 +384,43 @@ function makeElementResizable(div) {
     }
     function stopResize() {
         window.removeEventListener('mousemove', resize);
+    }
+}
+
+
+// Rotating Elements
+function addDragRotateHandler(elementSelector) {
+    var targetElement = document.querySelector(elementSelector);
+    var offset = getOffset(targetElement);
+    var rotater = targetElement.querySelector('.rotater');
+    var mouseDown = false;
+
+    function mouse(evt) {
+        if (mouseDown) {
+            var center_x = offset.left + targetElement.offsetWidth / 2;
+            var center_y = offset.top + targetElement.offsetHeight / 2;
+            var mouse_x = evt.pageX;
+            var mouse_y = evt.pageY;
+            var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
+            var degree = (radians * (180 / Math.PI) * -1) + 90;
+            targetElement.style.transform = 'rotate(' + degree + 'deg)';
+        }
+    }
+
+    rotater.addEventListener('mousedown', function (e) {
+        mouseDown = true;
+        document.addEventListener('mousemove', mouse);
+    });
+
+    document.addEventListener('mouseup', function (e) {
+        mouseDown = false;
+    });
+
+    function getOffset(el) {
+        var rect = el.getBoundingClientRect();
+        return {
+            top: rect.top + window.scrollY,
+            left: rect.left + window.scrollX
+        };
     }
 }
