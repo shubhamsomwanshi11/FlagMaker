@@ -31,7 +31,14 @@
                 <div class="columns ml-3" style="height: 100%;">
                     <div class="column has-background-white" style="width: 98%; height:89%;border-radius: 8px;">
                         <div class="has-text-right">
-                            <button class="button is-outlined mx-2 is-danger" id="delete">Delete</button>
+                            <div class="select">
+                                <select name="" id="fliptype">
+                                    <option value="h">Horizontal</option>
+                                    <option value="v">Vertical</option>
+                                </select>
+                            </div>
+                            <button class="button is-link" id="flip">Flip</button>
+                            <button class="button is-outlined is-danger" id="delete">Delete</button>
                         </div>
                         <div id="flagarea" class="mt-1 ml-2 is-flex is-align-items-center is-justify-content-center"
                             style="height: 80%;">

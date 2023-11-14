@@ -223,6 +223,11 @@ document.addEventListener("DOMContentLoaded", () => {
         selectImage(resizableDiv);
         event.stopPropagation();
     });
+
+    document.getElementById('flip').addEventListener('click', () => {
+        var type = document.getElementById('fliptype').value;
+        flipImage(type);
+    })
 });
 
 function newFlag() {
@@ -424,3 +429,38 @@ function addDragRotateHandler(elementSelector) {
         };
     }
 }
+
+// Flip object
+function flipImage(flipType) {
+    var flippableImage = document.querySelector('.selected');
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = flippableImage.clientWidth;
+    canvas.height = flippableImage.clientHeight;
+
+    var backgroundImage = getComputedStyle(flippableImage).backgroundImage;
+
+    // Create an Image object to load the background image
+    var img = new Image();
+    img.src = backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+
+    // Ensure the image is loaded before flipping
+    img.onload = function () {
+        if (flipType === 'v') {
+            // Flip vertically
+            ctx.scale(1, -1);
+            ctx.drawImage(img, 0, -flippableImage.clientHeight, flippableImage.clientWidth, flippableImage.clientHeight);
+        } else if (flipType === 'h') {
+            // Flip horizontally
+            ctx.scale(-1, 1);
+            ctx.drawImage(img, -flippableImage.clientWidth, 0, flippableImage.clientWidth, flippableImage.clientHeight);
+        } else {
+            // Default behavior: flip vertically
+            ctx.scale(1, -1);
+            ctx.drawImage(img, 0, -flippableImage.clientHeight, flippableImage.clientWidth, flippableImage.clientHeight);
+        }
+
+        // Change the background image of the existing element to the flipped image
+        flippableImage.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+    };
+}   
