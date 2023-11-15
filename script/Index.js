@@ -102,28 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the "flags" container
     const flagsContainer = document.getElementById("flags");
 
-
-    function rgbToHex(rgb) {
-        // Check if the RGB value is in the correct format
-        if (!rgb || rgb.indexOf("rgb(") !== 0) {
-            return null;
-        }
-
-        // Extract the individual RGB components
-        const rgbArray = rgb
-            .replace("rgb(", "")
-            .replace(")", "")
-            .split(",")
-            .map(component => parseInt(component.trim()));
-
-        // Convert the RGB components to hexadecimal and format them as a hex color code
-        const hexColor = "#" + rgbArray.map(component => {
-            const hex = component.toString(16);
-            return hex.length === 1 ? "0" + hex : hex;
-        }).join("");
-
-        return hexColor;
-    }
     function rgbToHex(rgb) {
         // Check if the RGB value is in the correct format
         if (!rgb || rgb.indexOf("rgb(") !== 0) {
@@ -147,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Get all elements with the class "column"
-    const columnElements = Array.from(flagsContainer.querySelectorAll(".column"));
+    const columnElements = Array.from(flagsContainer.querySelectorAll(".org"));
     const colorPickersDiv = document.getElementById("colorpickers");
     // Add click event listeners to the "column" elements
     columnElements.forEach(columnElement => {
@@ -196,6 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+    const imgcolumns = Array.from(flagsContainer.querySelectorAll(".flagimg"))
+    imgcolumns.forEach(element => {
+        element.addEventListener('click', () => {
+            flag.innerHTML = element.outerHTML;
+            initializeColorPicker();
+        });
+    })
     // Remove the 'selected' class when clicking anywhere else on the document
     flag.addEventListener('click', function (event) {
         var divs = flag.getElementsByTagName('div'); // Get all images in the flag container
@@ -463,4 +448,109 @@ function flipImage(flipType) {
         // Change the background image of the existing element to the flipped image
         flippableImage.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
     };
-}   
+}
+
+// Function to initialize color picker
+function initializeColorPicker() {
+    document.getElementById('colorpickers').innerHTML = "";
+    const image = document.querySelector('.flagimg').querySelector('img');
+    const colorPicker = document.getElementById('colorInput');
+
+    image.addEventListener('click', (event) => {
+        const x = event.offsetX;
+        const y = event.offsetY;
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        canvas.width = image.width;
+        canvas.height = image.height;
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const selectedColor = getPixelColor(imageData, x, y);
+
+        // Remove the border from the previously selected area
+        const prevSelectedArea = document.querySelector('.selected-area');
+        if (prevSelectedArea) {
+            prevSelectedArea.classList.remove('selected-area');
+        }
+
+        // Highlight the selected area
+        image.classList.add('selected-area');
+
+        // Show color picker at the clicked position
+        colorPicker.value = rgbToHex(selectedColor);
+        colorPicker.style.left = `${event.clientX}px`;
+        colorPicker.style.top = `${event.clientY}px`;
+        colorPicker.style.display = 'block';
+
+        // Handle color picker value change
+        colorPicker.addEventListener('change', () => {
+            updateImageColor(image, imageData, selectedColor, colorPicker.value);
+        });
+    });
+}
+
+// Function to update the color of a pixel in the image
+function updateImageColor(image, imageData, oldColor, newColor) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+            const currentColor = getPixelColor(imageData, x, y);
+            if (colorsAreEqual(currentColor, oldColor)) {
+                // Change the color of the pixel to the new color
+                context.fillStyle = newColor;
+                context.fillRect(x, y, 1, 1);
+            }
+            else {
+                context.fillStyle = currentColor;
+                context.fillRect(x, y, 1, 1);
+            }
+        }
+    }
+
+    // Set the modified image as the source of the original image element
+    image.src = canvas.toDataURL();
+}
+
+// Function to check if two colors are approximately equal
+function colorsAreEqual(color1, color2) {
+    return color1.toLowerCase() === color2.toLowerCase();
+}
+
+// Function to get RGB values from a pixel
+function getPixelColor(imageData, x, y) {
+    const index = (y * imageData.width + x) * 4;
+    const red = imageData.data[index];
+    const green = imageData.data[index + 1];
+    const blue = imageData.data[index + 2];
+    return `rgb(${red}, ${green}, ${blue})`;
+}
+
+function rgbToHex(rgb) {
+    // Check if the RGB value is in the correct format
+    if (!rgb || rgb.indexOf("rgb(") !== 0) {
+        return null;
+    }
+
+    // Extract the individual RGB components
+    const rgbArray = rgb
+        .replace("rgb(", "")
+        .replace(")", "")
+        .split(",")
+        .map(component => parseInt(component.trim()));
+
+    // Convert the RGB components to hexadecimal and format them as a hex color code
+    const hexColor = "#" + rgbArray.map(component => {
+        const hex = component.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+    }).join("");
+
+    return hexColor;
+}
