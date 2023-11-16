@@ -71,6 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Generate 30 divs with a random mix of vertical and horizontal bars
+    const types = Array(30).fill().map((_, i) => i % 2 === 0 ? 'vertical' : 'horizontal');
+    shuffleArray(types);
+
+    types.forEach(type => {
+        createBars(type, Math.floor(Math.random() * 3) + 2);
+    });
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 
     const tabItems = Array.from(document.querySelectorAll(".tab-item"));
     const tabContents = Array.from(document.querySelectorAll(".tab-content"));
@@ -101,28 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Get the "flags" container
     const flagsContainer = document.getElementById("flags");
-
-    function rgbToHex(rgb) {
-        // Check if the RGB value is in the correct format
-        if (!rgb || rgb.indexOf("rgb(") !== 0) {
-            return null;
-        }
-
-        // Extract the individual RGB components
-        const rgbArray = rgb
-            .replace("rgb(", "")
-            .replace(")", "")
-            .split(",")
-            .map(component => parseInt(component.trim()));
-
-        // Convert the RGB components to hexadecimal and format them as a hex color code
-        const hexColor = "#" + rgbArray.map(component => {
-            const hex = component.toString(16);
-            return hex.length === 1 ? "0" + hex : hex;
-        }).join("");
-
-        return hexColor;
-    }
 
     // Get all elements with the class "column"
     const columnElements = Array.from(flagsContainer.querySelectorAll(".org"));
@@ -553,4 +545,29 @@ function rgbToHex(rgb) {
     }).join("");
 
     return hexColor;
+}
+
+// Random function to create Sample Flags
+const colorList = ["#ff671f", "#046a38", "#c60c33", "#005bbb", "#ffd700"];
+
+function createBars(type, count) {
+    const column = document.createElement('div');
+    column.classList.add('column');
+    column.classList.add('org');
+    column.classList.add('is-5');
+    const container = document.createElement('div');
+    container.classList.add(type === 'vertical' ? 'vertical-bars-container' : 'horizontal-bars-container');
+
+    for (let i = 0; i < count; i++) {
+        const bar = document.createElement('div');
+        bar.classList.add(type === 'vertical' ? 'vertical-bar' : 'horizontal-bar');
+        bar.style.backgroundColor = getRandomColor();
+        container.appendChild(bar);
+    }
+    column.appendChild(container);
+    document.getElementById('flags').appendChild(column);
+}
+
+function getRandomColor() {
+    return colorList[Math.floor(Math.random() * colorList.length)];
 }
