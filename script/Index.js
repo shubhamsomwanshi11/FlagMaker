@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
     types.forEach(type => {
         createBars(type, Math.floor(Math.random() * 3) + 2);
     });
+    for (let i = 0; i < 15; i++) {
+        createBars('vertical', 2);
+        createBars('horizontal', 2);
+    }
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -548,26 +552,85 @@ function rgbToHex(rgb) {
 }
 
 // Random function to create Sample Flags
-const colorList = ["#ff671f", "#046a38", "#c60c33", "#005bbb", "#ffd700"];
+const colorList = ["#ff671f", "#046a38", "#c60c33", "#ffffff", "#005bbb", "#ffd700"];
+const maskClasses = [
+    'top-zig-zag',
+    'bottom-zig-zag',
+    'left-zig-zag',
+    'right-zig-zag',
+    'scooped-bottom',
+    'scooped-top',
+    'scooped-left',
+    'scooped-right',
+    'scalloped-top',
+    'scalloped-bottom',
+    'wavy-top',
+    'wavy-bottom',
+    'wavy-right',
+    'wavy-left'
+];
 
 function createBars(type, count) {
     const column = document.createElement('div');
     column.classList.add('column');
     column.classList.add('org');
     column.classList.add('is-5');
+    column.classList.add('has-background-grey-light');
+    column.classList.add('mx-1');
+    column.classList.add('mt-2');
     const container = document.createElement('div');
     container.classList.add(type === 'vertical' ? 'vertical-bars-container' : 'horizontal-bars-container');
+    container.style.position = "relative";
+
+    let previousColor = null;
+    // Add triangle div based on conditions
+    // if (count === 2) {
+    //     const triangleDiv = document.createElement('div');
+    //     triangleDiv.classList.add(type === 'vertical' ? 'top-triangle' : 'left-triangle');
+    //     const color = getRandomColor(previousColor, isFirstOrLast);
+    //     triangleDiv.style.backgroundColor = color;
+    //     container.appendChild(triangleDiv);
+    // }
+    var isFirstOrLast;
 
     for (let i = 0; i < count; i++) {
+        isFirstOrLast = i === 0 || i === count - 1;
         const bar = document.createElement('div');
+        if (i == 0) {
+            if (count == 2 && type == 'vertical') {
+                bar.classList.add(getRandomDirectionClass(maskClasses, ['right']));
+            }
+            else if (count == 2) {
+                bar.classList.add(getRandomDirectionClass(maskClasses, ['bottom']));
+            }
+        }
         bar.classList.add(type === 'vertical' ? 'vertical-bar' : 'horizontal-bar');
-        bar.style.backgroundColor = getRandomColor();
+        const color = getRandomColor(previousColor, isFirstOrLast);
+        bar.style.backgroundColor = color;
+        previousColor = color;
         container.appendChild(bar);
+
+
     }
     column.appendChild(container);
     document.getElementById('flags').appendChild(column);
 }
 
-function getRandomColor() {
-    return colorList[Math.floor(Math.random() * colorList.length)];
+
+function getRandomDirectionClass(classes, directions) {
+    const matchingClasses = classes.filter(className => directions.some(direction => className.includes(direction)));
+    const randomIndex = Math.floor(Math.random() * matchingClasses.length);
+    return matchingClasses[randomIndex];
+}
+
+
+function getRandomColor(previousColor, isFirstOrLast) {
+    let newColor = previousColor;
+
+    // Ensure the new color is different from the previous color
+    while (newColor === previousColor || (isFirstOrLast && newColor === "#ffffff")) {
+        newColor = colorList[Math.floor(Math.random() * colorList.length)];
+    }
+
+    return newColor;
 }
