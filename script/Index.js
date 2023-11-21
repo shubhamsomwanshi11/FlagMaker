@@ -33,10 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     var widthInput = document.getElementById('widthInput');
     var colorInput = document.getElementById('colorInput');
 
-    // Set default values
-    heightInput.value = '300';
-    widthInput.value = '500';
-
     // Function to update flag size based on input values
     function updateFlagSize() {
         var height = parseInt(heightInput.value);
@@ -314,22 +310,59 @@ function downloadImage() {
     }
 
     const divToCapture = document.getElementById('flag');
-    const width = divToCapture.offsetWidth;
-    const height = divToCapture.offsetHeight;
-
     const selectedFormat = document.getElementById('imagetype').value;
 
+    // Get the selected image size
+    const selectedSize = document.getElementById('imageSize').value;
+
+    // Set the width and height based on the selected size
+    let width, height;
+
+    switch (selectedSize) {
+        case 'original':
+            width = divToCapture.offsetWidth;
+            height = divToCapture.offsetHeight;
+            break;
+        case 'x-large':
+            width = 4800;
+            height = 4800 * (divToCapture.offsetHeight / divToCapture.offsetWidth);
+            break;
+        case 'large':
+            width = 2400;
+            height = 2400 * (divToCapture.offsetHeight / divToCapture.offsetWidth);
+            break;
+        case 'medium':
+            width = 1200;
+            height = 1200 * (divToCapture.offsetHeight / divToCapture.offsetWidth);
+            break;
+        case 'small':
+            width = 600;
+            height = 600 * (divToCapture.offsetHeight / divToCapture.offsetWidth);
+            break;
+        default:
+            // Handle unknown size
+            break;
+    }
+
+    var scaleX = parseFloat(width / divToCapture.offsetWidth);
+    var scaleY = parseFloat(height / divToCapture.offsetHeight);
+    divToCapture.style.transform = `scaleX(${scaleX}) scaleY(${scaleY})`;
+
     html2canvas(divToCapture, {
-        width,
-        height,
+        width: width,
+        height: height,
+        scaleX: scaleX,
+        scaleY: scaleY,
         ignoreElements: element => element.classList.contains('rotater')
     }).then(function (canvas) {
         const link = document.createElement('a');
-        link.download = 'flag.' + selectedFormat;
+        link.download = 'flag_' + selectedSize + '.' + selectedFormat;
         link.href = canvas.toDataURL('image/' + selectedFormat);
         link.click();
     });
+    divToCapture.style.transform = 'scale(1)';
 }
+
 
 
 // Making elements resizable

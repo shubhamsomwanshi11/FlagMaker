@@ -1,7 +1,5 @@
 #flag {
   position: relative;
-  width: 300px;
-  height: 500px;
   background-color: yellow;
   background-image: none;
   background-size: cover;
@@ -10,8 +8,8 @@
 }
 
 .default-size {
-  width: 300px;
-  height: 500px;
+  width: 500px;
+  height: 300px;
 }
 
 .vertical-bars-container {

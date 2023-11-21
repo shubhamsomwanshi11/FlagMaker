@@ -25,6 +25,15 @@
                                 <option value="jpg">JPG</option>
                             </select>
                         </div>
+                        <div class="select ml-1">
+                            <select id="imageSize">
+                                <option value="original">Original Size</option>
+                                <option value="x-large">X-Large (4800 px)</option>
+                                <option value="large">Large (2400 px)</option>
+                                <option value="medium">Medium (1200 px)</option>
+                                <option value="small">Small (600 px)</option>
+                            </select>
+                        </div>
                         <button class="button  mx-2" onclick="downloadImage()">Download</button>
                     </div>
                 </div>
@@ -43,7 +52,7 @@
                         <div id="flagarea"
                             class="mt-1 has-background-grey-light ml-2 is-flex is-align-items-center is-justify-content-center"
                             style="height: 80%;">
-                            <div id="flag-container">
+                            <div id="flag-container" class="default-size">
                                 <div style="width: 100%; height: 100%;" id="flag">
                                     <div class="horizontal-bars-container">
                                         <div id="div1" class="horizontal-bar" style="background-color: #FF671F;"></div>
