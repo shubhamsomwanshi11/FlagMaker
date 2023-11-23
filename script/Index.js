@@ -630,7 +630,7 @@ function createBars(type, count) {
         src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 19) + 1) + '.PNG';
     }
     else if (random == "Creature") {
-        src = './img/Creatures/Creature_' + (Math.floor(Math.random() * 47) + 1) + '.PNG';
+        src = './img/Creatures/Creature_' + (Math.floor(Math.random() * 47) + 1) + '.png';
     }
     Image.src = src;
     let previousColor = null;
