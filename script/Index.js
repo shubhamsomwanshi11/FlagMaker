@@ -1,4 +1,4 @@
-var flag;
+var flag, height, width;
 document.addEventListener("DOMContentLoaded", () => {
     addDragRotateHandler(`.rotate0`)
     // Get references to the color pickers and divs
@@ -26,17 +26,23 @@ document.addEventListener("DOMContentLoaded", () => {
         colorPicker.value = rgbToHex(colorDivs[index].style.backgroundColor);
     });
 
+    // Add ranodm flag
+    document.getElementById('random').addEventListener("click", () => {
+        var flags = document.getElementById('flags').querySelectorAll('.column');
+        (flags[Math.floor(Math.random() * 60) + 1]).click();
+    })
 
     var uploadedFile = document.getElementById('upload');
     flag = document.getElementById('flag');
     var heightInput = document.getElementById('heightInput');
     var widthInput = document.getElementById('widthInput');
     var colorInput = document.getElementById('colorInput');
-
+    heightInput.value = document.getElementById('flag-container').offsetHeight;
+    widthInput.value = document.getElementById('flag-container').offsetWidth;
     // Function to update flag size based on input values
     function updateFlagSize() {
-        var height = parseInt(heightInput.value);
-        var width = parseInt(widthInput.value);
+        height = parseInt(heightInput.value);
+        width = parseInt(widthInput.value);
 
         flag.style.height = height + 'px';
         flag.style.width = width + 'px';
@@ -67,16 +73,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Generate 30 divs with a random mix of vertical and horizontal bars
-    const types = Array(30).fill().map((_, i) => i % 2 === 0 ? 'vertical' : 'horizontal');
+    // Generate 50 divs with a random mix of vertical and horizontal bars
+    const types = Array(50).fill().map((_, i) => i % 2 === 0 ? 'vertical' : 'horizontal');
     shuffleArray(types);
 
     types.forEach(type => {
         createBars(type, Math.floor(Math.random() * 3) + 2);
     });
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 10; i++) {
         createBars('vertical', 2);
         createBars('horizontal', 2);
+        createBars('triangle', 2);
     }
 
     function shuffleArray(array) {
@@ -138,8 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
             flag.appendChild(div);
 
             // Check if the innerHTML contains multiple div elements
-            var divsInInnerHTML = div.querySelector("div");
-            divsInInnerHTML = divsInInnerHTML.querySelectorAll("div");
+            var divsInInnerHTML = div.querySelectorAll("div");
 
             if (divsInInnerHTML.length > 1) {
                 // Clear the "colorpickers" div first
@@ -176,6 +182,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove the 'selected' class when clicking anywhere else on the document
     flag.addEventListener('click', function (event) {
         var divs = flag.getElementsByTagName('div'); // Get all images in the flag container
+        var rotaters = flag.querySelectorAll('.rotater');
+        rotaters.forEach(rotater => {
+            rotater.style.display = 'none';
+        });
         for (var i = 0; i < divs.length; i++) {
             divs[i].classList.remove('selected'); // Remove 'selected' class from all images
         }
@@ -213,7 +223,7 @@ function newFlag() {
 }
 
 var divCounter = 1;
-function appendImageToFlag(element) {
+function appendImageToFlag(element, id) {
     var imageUrl;
     if (element.tagName === 'IMG') {
         imageUrl = element.src;
@@ -249,8 +259,10 @@ function appendImageToFlag(element) {
         resizableDiv.classList.add(`rotate${divCounter}`);
         var rotater = document.createElement('div');
         rotater.classList.add('rotater');
+        rotater.style.display = 'none';
         resizableDiv.appendChild(rotater);
-        flag.appendChild(resizableDiv);
+        console.log(id);
+        document.querySelector(id).appendChild(resizableDiv);
         makeElementResizable('.resizable');
         dragElement(resizableDiv);
         addDragRotateHandler(`.rotate${divCounter}`)
@@ -263,7 +275,11 @@ function selectImage(element) {
     for (var i = 0; i < divs.length; i++) {
         divs[i].classList.remove('selected');
     }
+    flag.querySelectorAll('.rotater').forEach(element => {
+        element.style.display = 'none';
+    });
     element.classList.add('selected');
+    element.querySelector('.rotater').style.display = '';
     document.getElementById('delete').disabled = false;
 }
 
@@ -587,20 +603,9 @@ function rgbToHex(rgb) {
 // Random function to create Sample Flags
 const colorList = ["#ff671f", "#046a38", "#c60c33", "#ffffff", "#005bbb", "#ffd700"];
 const maskClasses = [
-    'top-zig-zag',
     'bottom-zig-zag',
-    'left-zig-zag',
-    'right-zig-zag',
-    'scooped-bottom',
-    'scooped-top',
-    'scooped-left',
-    'scooped-right',
-    'scalloped-top',
-    'scalloped-bottom',
-    'wavy-top',
     'wavy-bottom',
-    'wavy-right',
-    'wavy-left'
+    'wavy-right'
 ];
 
 function createBars(type, count) {
@@ -612,40 +617,54 @@ function createBars(type, count) {
     column.classList.add('mx-1');
     column.classList.add('mt-2');
     const container = document.createElement('div');
+    var random1 = Math.floor(Math.random() * 2222) + 1;
+    column.classList.add(`object${random1}`)
+    column.style.position = "relative";
     container.classList.add(type === 'vertical' ? 'vertical-bars-container' : 'horizontal-bars-container');
-    container.style.position = "relative";
-
+    var Images = ['Symbol', 'Creature'];
+    var random = Images[Math.floor(Math.random() * Images.length)];
+    var Image = document.createElement('img');
+    Image.classList.add('staticimg');
+    var src;
+    if (random == "Symbol") {
+        src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 19) + 1) + '.PNG';
+    }
+    else if (random == "Creature") {
+        src = './img/Creatures/Creature_' + (Math.floor(Math.random() * 47) + 1) + '.PNG';
+    }
+    Image.src = src;
     let previousColor = null;
     // Add triangle div based on conditions
-    // if (count === 2) {
-    //     const triangleDiv = document.createElement('div');
-    //     triangleDiv.classList.add(type === 'vertical' ? 'top-triangle' : 'left-triangle');
-    //     const color = getRandomColor(previousColor, isFirstOrLast);
-    //     triangleDiv.style.backgroundColor = color;
-    //     container.appendChild(triangleDiv);
-    // }
     var isFirstOrLast;
 
     for (let i = 0; i < count; i++) {
         isFirstOrLast = i === 0 || i === count - 1;
         const bar = document.createElement('div');
-        if (i == 0) {
-            if (count == 2 && type == 'vertical') {
+        if (i == 0 && count == 2) {
+            if (type == 'vertical') {
                 bar.classList.add(getRandomDirectionClass(maskClasses, ['right']));
             }
-            else if (count == 2) {
+            else if (type == "horizontal") {
                 bar.classList.add(getRandomDirectionClass(maskClasses, ['bottom']));
             }
         }
         bar.classList.add(type === 'vertical' ? 'vertical-bar' : 'horizontal-bar');
         const color = getRandomColor(previousColor, isFirstOrLast);
         bar.style.backgroundColor = color;
+        container.style.backgroundColor = getRandomColor(previousColor, isFirstOrLast);
         previousColor = color;
         container.appendChild(bar);
-
-
     }
+    if (count == 2 && type == "triangle") {
+        const triangleDiv = document.createElement('div');
+        triangleDiv.classList.add(type === 'vertical' ? 'top-triangle' : 'left-triangle');
+        const color = getRandomColor(previousColor, isFirstOrLast);
+        triangleDiv.style.backgroundColor = color;
+        container.appendChild(triangleDiv);
+    }
+
     column.appendChild(container);
+    container.appendChild(Image);
     document.getElementById('flags').appendChild(column);
 }
 

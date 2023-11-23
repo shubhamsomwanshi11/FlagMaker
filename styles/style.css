@@ -69,8 +69,33 @@
   position: absolute;
   top: 100px;
   left: 100px;
-  background-size: 100% 100%;
+  background-position-y: center;
+  background-size: 85% 85%;
   background-repeat: no-repeat;
+}
+
+#flags .column .staticimg {
+  width: 40px;
+  height: 40px;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+#flag .horizontal-bars-container .staticimg,
+#flag .vertical-bars-container .staticimg {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.staticimg {
+  z-index: 9999;
 }
 
 .resizable .resizers {
@@ -139,100 +164,44 @@
   clip-path: polygon(100% 0, 0 0, 50% 40%);
 }
 
-.top-zig-zag {
-  --mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50%/60.00px 100%;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
 .bottom-zig-zag {
   --mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50%/60.00px 100%;
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
 
-.right-zig-zag {
-  --mr: conic-gradient(from -135deg at right, #0000, #000 1deg 89deg, #0000 90deg) right/51% 80px repeat-y;
-  -webkit-mask: var(--mr);
-  mask: var(--mr);
-}
-
-.scooped-bottom {
-  --mask: radial-gradient(30px at bottom, #0000 97%, #000) 50% / 55.50px 100%;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.scooped-top {
-  --mask: radial-gradient(30px at top, #0000 97%, #000) 50% / 55.50px 100%;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.scooped-left {
-  --mask: radial-gradient(30px at left, #0000 97%, #000) 50%/ 100% 55.50px;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.scooped-right {
-  --mask: radial-gradient(30px at right, #0000 97%, #000) 50%/ 100% 55.50px;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.scalloped-top {
-  --mask:
-    linear-gradient(to bottom, #0000 30px, #000 0),
-    radial-gradient(30px, #000 98%, #0000) top/55.50px 60px;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.scalloped-bottom {
-  --mask:
-    linear-gradient(to top, #0000 30px, #000 0),
-    radial-gradient(30px, #000 98%, #0000) bottom/55.50px 60px;
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-}
-
-.wavy-top {
-  --mask:
-    radial-gradient(30px at 25% 0, #0000 98%, #000) 50% 30px/120px 100% repeat-x,
-    radial-gradient(30px at 75% 50%, #000 99%, #0000 101%) top/120px 60px repeat-x;
+#flags .bottom-zig-zag {
+  --mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50%/10.00px 100%;
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
 
 .wavy-bottom {
-  --mask:
-    radial-gradient(30px at 75% 100%, #0000 98%, #000) 50% calc(100% - 30px)/120px 100% repeat-x,
+  --mask: radial-gradient(30px at 75% 100%, #0000 98%, #000) 50% calc(100% - 30px)/120px 100% repeat-x,
     radial-gradient(30px at 25% 50%, #000 99%, #0000 101%) bottom/120px 60px repeat-x;
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
 
-.wavy-right {
+#flags .wavy-bottom {
   --mask:
-    radial-gradient(30px at 100% 25%, #0000 98%, #000) calc(100% - 30px) 50%/100% 120px repeat-y,
+    radial-gradient(5px at 75% 100%, #0000 98%, #000) 50% calc(100% - 5px)/20px 100% repeat-x,
+    radial-gradient(5px at 25% 50%, #000 99%, #0000 101%) bottom/20px 10px repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+}
+
+.wavy-right {
+  --mask: radial-gradient(30px at 100% 25%, #0000 98%, #000) calc(100% - 30px) 50%/100% 120px repeat-y,
     radial-gradient(30px at 50% 75%, #000 99%, #0000 101%) right/60px 120px repeat-y;
   -webkit-mask: var(--mask);
   mask: var(--mask);
 }
 
-.wavy-left {
+#flags .wavy-right {
   --mask:
-    radial-gradient(30px at 0 75%, #0000 98%, #000) 30px 50%/100% 120px repeat-y,
-    radial-gradient(30px at 50% 25%, #000 99%, #0000 101%) left/60px 120px repeat-y;
+    radial-gradient(5px at 100% 25%, #0000 98%, #000) calc(100% - 5px) 50%/100% 20px repeat-y,
+    radial-gradient(5px at 50% 75%, #000 99%, #0000 101%) right/10px 20px repeat-y;
   -webkit-mask: var(--mask);
   mask: var(--mask);
-}
-
-.left-border {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transform: rotate(180deg);
 }

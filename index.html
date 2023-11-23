@@ -35,11 +35,13 @@
                             </select>
                         </div>
                         <button class="button  mx-2" onclick="downloadImage()">Download</button>
+                        
                     </div>
                 </div>
                 <div class="columns ml-3" style="height: 100%;">
                     <div class="column has-background-white" style="width: 98%; height:89%;border-radius: 8px;">
                         <div class="has-text-right">
+                            <button class="button is-info" id="random">Random</button>
                             <div class="select">
                                 <select name="" id="fliptype">
                                     <option value="h">Horizontal</option>
@@ -130,8 +132,8 @@
                         <p class="has-text-centered has-text-weight-bold">Upload a shape for flag.</p>
                         <div class="file column is-boxed">
                             <label class="file-label">
-                                <input class="file-input" onchange="appendImageToFlag(this)" id="upload" type="file"
-                                    accept="image/*" name="resume">
+                                <input class="file-input" onchange="appendImageToFlag(this,'#flag')" id="upload"
+                                    type="file" accept="image/*" name="resume">
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960"
@@ -293,92 +295,92 @@
                             style="overflow-y: auto; height: 290px;">
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_1.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_1.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_2.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_2.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_3.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_3.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_4.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_4.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_6.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_6.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_7.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_7.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_8.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_8.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_9.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_9.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_10.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_10.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_11.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_11.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_12.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_12.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_13.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_13.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_14.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_14.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_15.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_15.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_16.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_16.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_17.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_17.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_18.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_18.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Symbols/Symbol_19.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Symbols/Symbol_19.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
 
@@ -387,57 +389,57 @@
                             style="overflow-y: auto; height: 290px;">
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_1.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_1.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_2.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_2.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_3.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_3.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_4.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_4.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_5.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_5.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_6.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_6.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_7.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_7.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_8.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_8.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_9.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_9.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_10.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_10.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Shapes/Shapes_11.PNG" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Shapes/Shapes_11.PNG" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                         </div>
@@ -445,237 +447,275 @@
                             style="overflow-y: auto; height: 290px;">
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_1.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_1.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_2.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_2.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_3.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_3.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_4.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_4.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_5.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_5.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_6.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_6.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_7.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_7.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_8.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_8.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_9.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_9.png" onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_10.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_10.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_11.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_11.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_12.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_12.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_13.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_13.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_14.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_14.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_15.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_15.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_16.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_16.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_17.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_17.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_18.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_18.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_19.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_19.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_20.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_20.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_21.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_21.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_22.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_22.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_23.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_23.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_24.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_24.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_25.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_25.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_26.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_26.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_27.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_27.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_28.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_28.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_29.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_29.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_30.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_30.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_31.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_31.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_32.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_32.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_33.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_33.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_34.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_34.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_35.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_35.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_36.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_36.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_37.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_37.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_38.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_38.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_39.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_39.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_40.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_40.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_41.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_41.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_42.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_42.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_43.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_43.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_44.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_44.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_45.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_45.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_46.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_46.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                             <div class="column is-3">
                                 <figure class="image is-95x96">
-                                    <img src="./img/Creatures/Creature_47.png" onclick="appendImageToFlag(this)">
+                                    <img src="./img/Creatures/Creature_47.png"
+                                        onclick="appendImageToFlag(this,'#flag')">
                                 </figure>
                             </div>
                         </div>
