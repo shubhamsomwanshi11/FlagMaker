@@ -1,4 +1,7 @@
 var flag, height, width;
+const colorList = ["#ff671f", "#046a38", "#c60c33", "#ffffff", "#005bbb", "#ffd700"];
+const color1 = ["#c60c30", "#ffffff"];
+const color2 = ["#ff671f", "#ffffff"]
 document.addEventListener("DOMContentLoaded", () => {
     addDragRotateHandler(`.rotate0`)
     // Get references to the color pickers and divs
@@ -78,12 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
     shuffleArray(types);
 
     types.forEach(type => {
-        createBars(type, Math.floor(Math.random() * 3) + 2);
+        createBars(colorList, type, Math.floor(Math.random() * 3) + 2);
     });
     for (let i = 0; i < 10; i++) {
-        createBars('vertical', 2);
-        createBars('horizontal', 2);
-        createBars('triangle', 2);
+        createBars(colorList, 'vertical', 2);
+        createBars(colorList, 'horizontal', 2);
+        createBars(colorList, 'triangle', 2);
+        createBars(color1, 'vertical', 7);
+        createBars(color1, 'horizontal', 7);
+        createBars(color2, 'vertical', 7);
+        createBars(color2, 'horizontal', 7);
+        createBars(["#ffffff","#ffff00"], 'vertical', 7);
+        createBars(["#ffffff","#ffff00"], 'horizontal', 7);
     }
 
     function shuffleArray(array) {
@@ -601,14 +610,13 @@ function rgbToHex(rgb) {
 }
 
 // Random function to create Sample Flags
-const colorList = ["#ff671f", "#046a38", "#c60c33", "#ffffff", "#005bbb", "#ffd700"];
 const maskClasses = [
     'bottom-zig-zag',
     'wavy-bottom',
     'wavy-right'
 ];
 
-function createBars(type, count) {
+function createBars(colorList, type, count) {
     const column = document.createElement('div');
     column.classList.add('column');
     column.classList.add('org');
@@ -627,7 +635,7 @@ function createBars(type, count) {
     Image.classList.add('staticimg');
     var src;
     if (random == "Symbol") {
-        src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 19) + 1) + '.PNG';
+        src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 18) + 1) + '.PNG';
     }
     else if (random == "Creature") {
         src = './img/Creatures/Creature_' + (Math.floor(Math.random() * 47) + 1) + '.png';
@@ -649,16 +657,16 @@ function createBars(type, count) {
             }
         }
         bar.classList.add(type === 'vertical' ? 'vertical-bar' : 'horizontal-bar');
-        const color = getRandomColor(previousColor, isFirstOrLast);
+        const color = getRandomColor(colorList, previousColor, isFirstOrLast);
         bar.style.backgroundColor = color;
-        container.style.backgroundColor = getRandomColor(previousColor, isFirstOrLast);
+        container.style.backgroundColor = getRandomColor(colorList, previousColor, isFirstOrLast);
         previousColor = color;
         container.appendChild(bar);
     }
     if (count == 2 && type == "triangle") {
         const triangleDiv = document.createElement('div');
         triangleDiv.classList.add(type === 'vertical' ? 'top-triangle' : 'left-triangle');
-        const color = getRandomColor(previousColor, isFirstOrLast);
+        const color = getRandomColor(colorList, previousColor, isFirstOrLast);
         triangleDiv.style.backgroundColor = color;
         container.appendChild(triangleDiv);
     }
@@ -676,7 +684,7 @@ function getRandomDirectionClass(classes, directions) {
 }
 
 
-function getRandomColor(previousColor, isFirstOrLast) {
+function getRandomColor(colorList, previousColor, isFirstOrLast) {
     let newColor = previousColor;
 
     // Ensure the new color is different from the previous color
