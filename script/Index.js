@@ -631,7 +631,7 @@ function createBars(colorList, type, count) {
     Image.classList.add('staticimg');
     var src;
     if (random == "Symbol") {
-        src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 16) + 1) + '.PNG';
+        src = './img/Symbols/Symbol_' + (Math.floor(Math.random() * 15) + 1) + '.PNG';
     }
     else if (random == "Creature") {
         src = './img/Creatures/Creature_' + (Math.floor(Math.random() * 47) + 1) + '.png';
