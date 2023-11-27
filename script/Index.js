@@ -91,8 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
         createBars(color1, 'horizontal', 7);
         createBars(color2, 'vertical', 7);
         createBars(color2, 'horizontal', 7);
-        createBars(["#ffffff","#ffff00"], 'vertical', 7);
-        createBars(["#ffffff","#ffff00"], 'horizontal', 7);
+        createBars(["#ffffff", "#ffff00"], 'vertical', 7);
+        createBars(["#ffffff", "#ffff00"], 'horizontal', 7);
     }
 
     function shuffleArray(array) {
@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
             divs[i].classList.remove('selected'); // Remove 'selected' class from all images
         }
         document.getElementById('delete').disabled = true;
+        document.getElementById('flip').disabled = true;
     });
 
     document.getElementById('delete').addEventListener('click', () => {
@@ -206,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (element) {
             element.parentNode.removeChild(element);
             document.getElementById('delete').disabled = true;
+            document.getElementById('flip').disabled = true;
         }
     });
     dragElement(document.querySelector('.resizable'));
@@ -290,6 +292,7 @@ function selectImage(element) {
     element.classList.add('selected');
     element.querySelector('.rotater').style.display = '';
     document.getElementById('delete').disabled = false;
+    document.getElementById('flip').disabled = false;
 }
 
 function dragElement(elmnt) {
@@ -609,13 +612,6 @@ function rgbToHex(rgb) {
     return hexColor;
 }
 
-// Random function to create Sample Flags
-const maskClasses = [
-    'bottom-zig-zag',
-    'wavy-bottom',
-    'wavy-right'
-];
-
 function createBars(colorList, type, count) {
     const column = document.createElement('div');
     column.classList.add('column');
@@ -648,14 +644,6 @@ function createBars(colorList, type, count) {
     for (let i = 0; i < count; i++) {
         isFirstOrLast = i === 0 || i === count - 1;
         const bar = document.createElement('div');
-        if (i == 0 && count == 2) {
-            if (type == 'vertical') {
-                bar.classList.add(getRandomDirectionClass(maskClasses, ['right']));
-            }
-            else if (type == "horizontal") {
-                bar.classList.add(getRandomDirectionClass(maskClasses, ['bottom']));
-            }
-        }
         bar.classList.add(type === 'vertical' ? 'vertical-bar' : 'horizontal-bar');
         const color = getRandomColor(colorList, previousColor, isFirstOrLast);
         bar.style.backgroundColor = color;
@@ -674,13 +662,6 @@ function createBars(colorList, type, count) {
     column.appendChild(container);
     container.appendChild(Image);
     document.getElementById('flags').appendChild(column);
-}
-
-
-function getRandomDirectionClass(classes, directions) {
-    const matchingClasses = classes.filter(className => directions.some(direction => className.includes(direction)));
-    const randomIndex = Math.floor(Math.random() * matchingClasses.length);
-    return matchingClasses[randomIndex];
 }
 
 
