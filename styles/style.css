@@ -69,7 +69,7 @@
   position: absolute;
   top: 100px;
   left: 100px;
-  background-position-y: center;
+  background-position: center;
   background-size: 85% 85%;
   background-repeat: no-repeat;
   z-index: 10;
