@@ -3,7 +3,21 @@ const colorList = ["#ff671f", "#046a38", "#c60c33", "#ffffff", "#005bbb", "#ffd7
 const color1 = ["#c60c30", "#ffffff"];
 const color2 = ["#ff671f", "#ffffff"]
 document.addEventListener("DOMContentLoaded", () => {
-    addDragRotateHandler(`.rotate0`)
+    //Rotate div
+    const rotate = document.getElementById('rotate');
+    rotate.addEventListener('input', () => {
+        const rotatingDiv = document.querySelector('.selected');
+        const currentTransform = getComputedStyle(rotatingDiv).transform;
+        const rotationValue = parseInt(rotate.value);
+
+        // Combine the existing transform with the new rotation
+        rotatingDiv.style.transform = `${currentTransform} rotate(${rotationValue}deg)`;
+        rotatingDiv.style.transformOrigin = 'center';
+
+        // Store the rotation value as a data attribute
+        rotatingDiv.dataset.rotationValue = rotationValue;
+    });
+
     // Get references to the color pickers and divs
     const colorPickers = [
         document.getElementById('color1'),
@@ -134,53 +148,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Get all elements with the class "column"
     const columnElements = Array.from(flagsContainer.querySelectorAll(".org"));
+    const ranodmElements = Array.from(flagsContainer.querySelectorAll(".random"));
     const colorPickersDiv = document.getElementById("colorpickers");
     // Add click event listeners to the "column" elements
-    columnElements.forEach(columnElement => {
-        columnElement.addEventListener("click", () => {
-            // Get the innerHTML of the clicked element
-            const innerHTML = columnElement.innerHTML;
 
-            // Create a new div element to hold the innerHTML
-            const div = document.createElement("div");
-            div.innerHTML = innerHTML;
-            div.style.width = "100%";
-            div.style.height = "100%";
-            div.id = "flag";
 
-            flag.innerHTML = '';
+    function addColorPickers(columnElements) {
+        columnElements.forEach(columnElement => {
+            columnElement.addEventListener("click", () => {
+                let innerHTML;
+                const Image = document.createElement('img');
+                const hasRandomClass = columnElement.classList.contains('random');
 
-            // Append the new div to the "flags" container
-            flag.appendChild(div);
+                // Create a copy of the columnElement
+                const cloneElement = columnElement.cloneNode(true);
+                if (hasRandomClass) {
+                    const imgElement = cloneElement.querySelector('img');
 
-            // Check if the innerHTML contains multiple div elements
-            var divsInInnerHTML = div.querySelectorAll("div");
+                    // Check if the img element is found in the copy
+                    if (imgElement) {
+                        const url = new URL(imgElement.src);
 
-            if (divsInInnerHTML.length > 1) {
-                // Clear the "colorpickers" div first
-                colorPickersDiv.innerHTML = '';
+                        // Remove the img element from the copy
+                        imgElement.remove();
+                        Image.src = url.pathname;
+                    }
+                    innerHTML = cloneElement.innerHTML;
+                }
+                else {
+                    innerHTML = columnElement.innerHTML;
+                }
+                // Get the innerHTML of the clicked element
+                // Create a new div element to hold the innerHTML
+                const div = document.createElement("div");
+                div.innerHTML = innerHTML;
+                div.style.width = "100%";
+                div.style.height = "100%";
+                flag.innerHTML = '';
 
-                // Create color pickers for each div and append them to the "colorpickers" div
-                divsInInnerHTML.forEach((innerDiv, index) => {
-                    const colorPicker = document.createElement("input");
-                    colorPicker.type = "color";
-                    colorPicker.value = rgbToHex(innerDiv.style.backgroundColor);
+                // Append the new div to the "flags" container
+                flag.appendChild(div);
+                appendImageToFlag(Image);
 
-                    // Add a change event listener to update the background color
-                    colorPicker.addEventListener("input", (event) => {
-                        innerDiv.style.backgroundColor = event.target.value;
+                // Check if the innerHTML contains multiple div elements
+                var divsInInnerHTML = div.querySelector("div").querySelectorAll("div");
+
+                if (divsInInnerHTML.length > 1) {
+                    // Clear the "colorpickers" div first
+                    colorPickersDiv.innerHTML = '';
+
+                    // Create color pickers for each div and append them to the "colorpickers" div
+                    divsInInnerHTML.forEach((innerDiv, index) => {
+                        const colorPicker = document.createElement("input");
+                        colorPicker.type = "color";
+                        colorPicker.value = rgbToHex(innerDiv.style.backgroundColor);
+
+                        // Add a change event listener to update the background color
+                        colorPicker.addEventListener("input", (event) => {
+                            innerDiv.style.backgroundColor = event.target.value;
+                        });
+                        var div = document.createElement('div');
+                        div.appendChild(colorPicker);
+                        div.classList.add('column');
+                        div.classList.add('is-3');
+                        // Append the color picker to the "colorpickers" div
+                        colorPickersDiv.appendChild(div);
                     });
-                    colorPicker.classList.add('sp-replacer');
-                    var div = document.createElement('div');
-                    div.appendChild(colorPicker);
-                    div.classList.add('column');
-                    div.classList.add('is-3');
-                    // Append the color picker to the "colorpickers" div
-                    colorPickersDiv.appendChild(div);
-                });
-            }
+                }
+            });
         });
-    });
+    }
+
+    addColorPickers(columnElements);
+    addColorPickers(ranodmElements);
+
     const imgcolumns = Array.from(flagsContainer.querySelectorAll(".flagimg"))
     imgcolumns.forEach(element => {
         element.addEventListener('click', () => {
@@ -191,23 +232,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove the 'selected' class when clicking anywhere else on the document
     flag.addEventListener('click', function (event) {
         var divs = flag.getElementsByTagName('div'); // Get all images in the flag container
-        var rotaters = flag.querySelectorAll('.rotater');
-        rotaters.forEach(rotater => {
-            rotater.style.display = 'none';
-        });
         for (var i = 0; i < divs.length; i++) {
             divs[i].classList.remove('selected'); // Remove 'selected' class from all images
         }
-        document.getElementById('delete').disabled = true;
-        document.getElementById('flip').disabled = true;
+        disable();
     });
 
     document.getElementById('delete').addEventListener('click', () => {
         var element = document.querySelector('.selected');
         if (element) {
             element.parentNode.removeChild(element);
-            document.getElementById('delete').disabled = true;
-            document.getElementById('flip').disabled = true;
+            disable();
         }
     });
     dragElement(document.querySelector('.resizable'));
@@ -234,7 +269,7 @@ function newFlag() {
 }
 
 var divCounter = 1;
-function appendImageToFlag(element, id) {
+function appendImageToFlag(element) {
     var imageUrl;
     if (element.tagName === 'IMG') {
         imageUrl = element.src;
@@ -267,16 +302,9 @@ function appendImageToFlag(element, id) {
             selectImage(resizableDiv);
             event.stopPropagation();
         });
-        resizableDiv.classList.add(`rotate${divCounter}`);
-        var rotater = document.createElement('div');
-        rotater.classList.add('rotater');
-        rotater.style.display = 'none';
-        resizableDiv.appendChild(rotater);
-        console.log(id);
-        document.querySelector(id).appendChild(resizableDiv);
+        document.getElementById('flag').appendChild(resizableDiv);
         makeElementResizable('.resizable');
         dragElement(resizableDiv);
-        addDragRotateHandler(`.rotate${divCounter}`)
         divCounter++;
     }
 }
@@ -286,14 +314,12 @@ function selectImage(element) {
     for (var i = 0; i < divs.length; i++) {
         divs[i].classList.remove('selected');
     }
-    flag.querySelectorAll('.rotater').forEach(element => {
-        element.style.display = 'none';
-    });
     element.classList.add('selected');
-    element.querySelector('.rotater').style.display = '';
-    document.getElementById('delete').disabled = false;
-    document.getElementById('flip').disabled = false;
+    document.getElementById('rotate').value = parseInt(element.dataset.rotationValue || 0);
+    enable();
+
 }
+
 
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -305,7 +331,6 @@ function dragElement(elmnt) {
     }
 
     function dragMouseDown(e) {
-        // elmnt.classList.add('selected');
         e = e || window.event;
         e.preventDefault();
         pos3 = e.clientX;
@@ -380,8 +405,7 @@ function downloadImage() {
         width: width,
         height: height,
         scaleX: scaleX,
-        scaleY: scaleY,
-        ignoreElements: element => element.classList.contains('rotater')
+        scaleY: scaleY
     }).then(function (canvas) {
         const link = document.createElement('a');
         link.download = 'flag_' + selectedSize + '.' + selectedFormat;
@@ -434,44 +458,6 @@ function makeElementResizable(div) {
     }
 }
 
-
-// Rotating Elements
-function addDragRotateHandler(elementSelector) {
-    var targetElement = document.querySelector(elementSelector);
-    var offset = getOffset(targetElement);
-    var rotater = targetElement.querySelector('.rotater');
-    var mouseDown = false;
-
-    function mouse(evt) {
-        if (mouseDown) {
-            var center_x = offset.left + targetElement.offsetWidth / 2;
-            var center_y = offset.top + targetElement.offsetHeight / 2;
-            var mouse_x = evt.pageX;
-            var mouse_y = evt.pageY;
-            var radians = Math.atan2(mouse_x - center_x, mouse_y - center_y);
-            var degree = (radians * (180 / Math.PI) * -1) + 90;
-            targetElement.style.transform = 'rotate(' + degree + 'deg)';
-        }
-    }
-
-    rotater.addEventListener('mousedown', function (e) {
-        mouseDown = true;
-        document.addEventListener('mousemove', mouse);
-    });
-
-    document.addEventListener('mouseup', function (e) {
-        mouseDown = false;
-    });
-
-    function getOffset(el) {
-        var rect = el.getBoundingClientRect();
-        return {
-            top: rect.top + window.scrollY,
-            left: rect.left + window.scrollX
-        };
-    }
-}
-
 // Flip object
 function flipImage(flipType) {
     var flippableImage = document.querySelector('.selected');
@@ -479,9 +465,7 @@ function flipImage(flipType) {
     var ctx = canvas.getContext('2d');
     canvas.width = flippableImage.clientWidth;
     canvas.height = flippableImage.clientHeight;
-
     var backgroundImage = getComputedStyle(flippableImage).backgroundImage;
-
     // Create an Image object to load the background image
     var img = new Image();
     img.src = backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
@@ -615,7 +599,7 @@ function rgbToHex(rgb) {
 function createBars(colorList, type, count) {
     const column = document.createElement('div');
     column.classList.add('column');
-    column.classList.add('org');
+    column.classList.add('random');
     column.classList.add('is-5');
     column.classList.add('has-background-grey-light');
     column.classList.add('mx-1');
@@ -674,4 +658,15 @@ function getRandomColor(colorList, previousColor, isFirstOrLast) {
     }
 
     return newColor;
+}
+
+function disable() {
+    document.getElementById('delete').disabled = true;
+    document.getElementById('flip').disabled = true;
+    rotate.disabled = true;
+}
+function enable() {
+    document.getElementById('delete').disabled = false;
+    document.getElementById('flip').disabled = false;
+    rotate.disabled = false;
 }
